@@ -53,12 +53,44 @@
     .reveal {
       opacity: 0;
       transform: translateY(24px);
-      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
     }
 
     .reveal.visible {
       opacity: 1;
       transform: translateY(0);
+    }
+
+    .reveal-delay-1 { transition-delay: 0.15s; }
+    .reveal-delay-2 { transition-delay: 0.3s; }
+    .reveal-delay-3 { transition-delay: 0.45s; }
+    .reveal-delay-4 { transition-delay: 0.6s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal,
+      .reveal-delay-1,
+      .reveal-delay-2,
+      .reveal-delay-3,
+      .reveal-delay-4 {
+        transition: none !important;
+        transition-delay: 0s !important;
+      }
+      * {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+      }
+    }
+
+    /* Focus states */
+    :focus-visible {
+      outline: 3px solid rgba(0, 162, 255, 0.6);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+    .btn:focus-visible {
+      outline: 3px solid rgba(27, 34, 53, 0.9);
+      outline-offset: 3px;
     }
 
     /* Layout */
@@ -80,7 +112,7 @@
 
     /* Sections */
     .section {
-      padding: 96px 0;
+      padding: 80px 0;
     }
 
     .section-white {
@@ -116,7 +148,7 @@
       color: #1B2235;
       line-height: 1.15;
       margin-bottom: 20px;
-      letter-spacing: -0.5px;
+      letter-spacing: -0.025em;
     }
 
     .section-sub {
@@ -136,19 +168,22 @@
       font-size: 18px;
       font-weight: 700;
       padding: 16px 32px;
+      min-height: 48px;
       border-radius: 8px;
       border: none;
       cursor: pointer;
       text-decoration: none;
-      transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+      letter-spacing: -0.01em;
+      transition: background 0.2s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+      will-change: transform;
     }
 
     .btn:hover {
-      transform: translateY(-2px);
+      transform: scale(1.03);
     }
 
     .btn:active {
-      transform: translateY(0);
+      transform: scale(0.99);
     }
 
     .btn-orange {
@@ -159,7 +194,7 @@
 
     .btn-orange:hover {
       background: #e55a2e;
-      box-shadow: 0 6px 20px rgba(248, 106, 62, 0.45);
+      box-shadow: 0 10px 28px rgba(248, 106, 62, 0.5);
     }
 
     .btn-lg {
@@ -205,7 +240,7 @@
        ======================================== */
     .site-header {
       background: #FFFFFF;
-      padding: 24px 0;
+      padding: 20px 0;
       border-bottom: 1px solid #EEEEEE;
     }
 
@@ -216,7 +251,8 @@
     }
 
     .header-logo {
-      width: 150px;
+      width: 140px;
+      height: auto;
     }
 
     /* ========================================
@@ -230,6 +266,23 @@
       overflow: hidden;
     }
 
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(27, 34, 53, 0.08) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero .container {
+      position: relative;
+      z-index: 1;
+    }
+
     .hero-badge {
       margin-bottom: 28px;
     }
@@ -239,7 +292,7 @@
       font-weight: 800;
       color: #1B2235;
       line-height: 1.08;
-      letter-spacing: -1.5px;
+      letter-spacing: -0.03em;
       max-width: 980px;
       margin: 0 auto 28px;
     }
@@ -321,8 +374,20 @@
       font-weight: 800;
       color: #E04444;
       line-height: 1;
-      letter-spacing: -1.5px;
+      letter-spacing: -0.03em;
       margin-bottom: 10px;
+      display: inline-block;
+    }
+
+    .reveal.visible .problem-stat {
+      animation: statPulse 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s 1;
+    }
+
+    @keyframes statPulse {
+      0%   { transform: scale(1); }
+      35%  { transform: scale(1.08); }
+      70%  { transform: scale(0.98); }
+      100% { transform: scale(1); }
     }
 
     .problem-text {
@@ -340,11 +405,13 @@
       color: #1B2235;
       line-height: 1.4;
       text-align: center;
-      letter-spacing: -0.2px;
+      letter-spacing: -0.02em;
     }
 
     .problem-close .highlight {
       color: #F86A3E;
+      font-weight: 800;
+      white-space: nowrap;
     }
 
     /* ========================================
@@ -376,6 +443,7 @@
     }
 
     .solution-launch-box {
+      position: relative;
       display: inline-block;
       background: #FFFFFF;
       border-radius: 16px;
@@ -383,6 +451,28 @@
       border-top: 3px solid #F86A3E;
       box-shadow: 0 6px 28px rgba(27, 34, 53, 0.08);
       max-width: 620px;
+      overflow: hidden;
+    }
+
+    .solution-launch-box::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 18px;
+      padding: 2px;
+      background: linear-gradient(120deg, rgba(248, 106, 62, 0) 0%, rgba(248, 106, 62, 0.55) 50%, rgba(248, 106, 62, 0) 100%);
+      background-size: 200% 200%;
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+              mask-composite: exclude;
+      animation: bonusGlow 4s linear infinite;
+      pointer-events: none;
+      opacity: 0.9;
+    }
+
+    @keyframes bonusGlow {
+      0%   { background-position: 0% 50%; }
+      100% { background-position: 200% 50%; }
     }
 
     .solution-launch-box .badge {
@@ -429,22 +519,26 @@
       color: #1B2235;
       border: 2px solid #EEEEEE;
       padding: 14px 22px;
+      min-height: 48px;
       border-radius: 10px;
       cursor: pointer;
-      transition: all 0.25s ease;
-      letter-spacing: -0.1px;
+      transition: background 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      letter-spacing: -0.01em;
     }
 
     .session-tab:hover {
       border-color: #F86A3E;
       color: #F86A3E;
+      background: rgba(248, 106, 62, 0.04);
+      transform: translateY(-1px);
     }
 
     .session-tab.active {
       background: #F86A3E;
       color: #FFFFFF;
       border-color: #F86A3E;
-      box-shadow: 0 4px 14px rgba(248, 106, 62, 0.3);
+      box-shadow: 0 6px 18px rgba(248, 106, 62, 0.35);
+      transform: translateY(-1px);
     }
 
     .sessions-stack {
@@ -456,30 +550,62 @@
     .session-card {
       background: #FFFFFF;
       border-radius: 20px;
-      padding: 40px 44px;
+      padding: 44px 48px;
       box-shadow: 0 4px 24px rgba(27, 34, 53, 0.08);
       border: 1px solid #EEEEEE;
+      border-top: 3px solid #F86A3E;
       position: relative;
       display: none;
       opacity: 0;
-      transition: opacity 0.35s ease;
+      transform: translateY(-2px);
+      transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
     }
 
     .session-card.active {
       display: block;
       opacity: 1;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 36px rgba(27, 34, 53, 0.12);
+    }
+
+    .session-card.fade-in {
+      animation: cardFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes cardFadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(-2px); }
     }
 
     .session-date-badge {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       font-size: 13px;
       font-weight: 700;
-      letter-spacing: 0.8px;
+      letter-spacing: 1px;
       color: #00A2FF;
       background: #E6F0FA;
-      padding: 7px 14px;
+      padding: 8px 14px;
       border-radius: 6px;
       margin-bottom: 16px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .session-date-badge::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #00A2FF;
+      box-shadow: 0 0 0 4px rgba(0, 162, 255, 0.18);
+      animation: datePulse 2.4s ease-in-out infinite;
+    }
+
+    @keyframes datePulse {
+      0%, 100% { box-shadow: 0 0 0 4px rgba(0, 162, 255, 0.18); }
+      50%      { box-shadow: 0 0 0 7px rgba(0, 162, 255, 0.08); }
     }
 
     .session-icon {
@@ -547,9 +673,12 @@
     /* Elevated Session 3 */
     .session-card-elevated {
       background: linear-gradient(180deg, #FFFFFF 0%, #FAFBFF 100%);
-      border: 2px solid transparent;
-      background-clip: padding-box;
+      border-top: 3px solid #00A2FF;
       box-shadow: 0 8px 32px rgba(0, 162, 255, 0.18), 0 0 0 1px rgba(0, 162, 255, 0.25);
+    }
+
+    .session-card-elevated.active {
+      box-shadow: 0 12px 40px rgba(0, 162, 255, 0.25), 0 0 0 1px rgba(0, 162, 255, 0.3);
     }
 
     .session-premiere-tag {
@@ -678,12 +807,13 @@
       mix-blend-mode: multiply;
       filter: grayscale(1);
       opacity: 0.8;
-      transition: filter 0.25s ease, opacity 0.25s ease;
+      transition: filter 0.25s ease, opacity 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .marquee-item:hover img {
       filter: grayscale(0);
       opacity: 1;
+      transform: scale(1.05);
     }
 
     @keyframes marquee-scroll {
@@ -717,24 +847,44 @@
       font-weight: 800;
       color: #1B2235;
       line-height: 1.2;
-      letter-spacing: -0.5px;
+      letter-spacing: -0.025em;
       margin-bottom: 24px;
     }
 
     .urgency-dates {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
       font-size: 20px;
-      font-weight: 600;
+      font-weight: 700;
       color: #00A2FF;
       margin-bottom: 36px;
+      padding: 8px 18px;
+      background: rgba(0, 162, 255, 0.08);
+      border-radius: 999px;
+      letter-spacing: 0.02em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .urgency-dates::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #F86A3E;
+      box-shadow: 0 0 0 4px rgba(248, 106, 62, 0.25);
+      animation: datePulse 2.4s ease-in-out infinite;
     }
 
     .form-container {
+      position: relative;
       margin: 32px auto 0;
       max-width: 560px;
       background: #FFFFFF;
       border-radius: 16px;
       padding: 40px 32px;
-      box-shadow: 0 6px 28px rgba(27, 34, 53, 0.1);
+      box-shadow: 0 10px 40px rgba(27, 34, 53, 0.12);
       border-top: 3px solid #F86A3E;
       text-align: left;
     }
@@ -754,7 +904,8 @@
     .footer {
       background: #FFFFFF;
       padding: 40px 0;
-      border-top: 1px solid #EEEEEE;
+      border-top: 1px solid #E8E8ED;
+      box-shadow: 0 -1px 0 rgba(27, 34, 53, 0.02);
     }
 
     .footer-logo {
@@ -772,18 +923,30 @@
     /* ========================================
        RESPONSIVE
        ======================================== */
+    /* Tablet */
+    @media (max-width: 900px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        text-align: center;
+      }
+      .about-headshot {
+        margin: 0 auto;
+      }
+    }
+
     @media (max-width: 768px) {
       .section {
-        padding: 64px 0;
+        padding: 48px 0;
       }
 
       .hero {
-        padding: 48px 0 64px;
+        padding: 40px 0 56px;
       }
 
       .hero-headline {
         font-size: 38px;
-        letter-spacing: -0.8px;
+        letter-spacing: -0.025em;
       }
 
       .hero-sub {
@@ -834,15 +997,19 @@
 
       .session-tabs {
         gap: 8px;
+        flex-direction: column;
+        align-items: stretch;
+        max-width: 420px;
       }
 
       .session-tab {
-        font-size: 13px;
-        padding: 11px 14px;
+        font-size: 14px;
+        padding: 14px 16px;
+        width: 100%;
       }
 
       .session-card {
-        padding: 28px 24px;
+        padding: 28px 22px;
       }
 
       .session-icon {
@@ -866,12 +1033,6 @@
         font-size: 19px;
       }
 
-      .about-grid {
-        grid-template-columns: 1fr;
-        gap: 28px;
-        text-align: center;
-      }
-
       .about-headshot {
         width: 220px;
         height: 260px;
@@ -879,7 +1040,7 @@
       }
 
       .marquee-track { gap: 48px; }
-      .marquee-item img { height: 30px; }
+      .marquee-item img { height: 28px; }
 
       .urgency-headline {
         font-size: 28px;
@@ -891,22 +1052,46 @@
 
       .form-container {
         padding: 28px 20px;
+        margin-left: 16px;
+        margin-right: 16px;
+      }
+
+      .btn-xl,
+      .btn-lg {
+        display: block;
+        width: 100%;
+        max-width: 360px;
+        margin-left: auto;
+        margin-right: auto;
       }
 
       .btn-xl {
         font-size: 18px;
-        padding: 18px 36px;
+        padding: 18px 32px;
       }
 
       .btn-lg {
         font-size: 17px;
-        padding: 16px 32px;
+        padding: 16px 28px;
+      }
+
+      .header-logo {
+        width: 124px;
       }
     }
 
     @media (max-width: 480px) {
+      .container,
+      .container-narrow {
+        padding: 0 20px;
+      }
+
       .hero-headline {
         font-size: 32px;
+      }
+
+      .hero-sub {
+        font-size: 17px;
       }
 
       .section-headline {
@@ -924,6 +1109,10 @@
       .session-title {
         font-size: 20px;
       }
+
+      .solution-launch-box {
+        padding: 22px 20px;
+      }
     }
   </style>
 </head>
@@ -932,24 +1121,24 @@
   <!-- 1. HEADER -->
   <header class="site-header">
     <div class="container">
-      <img src="logo.png" alt="Outbound Squad" class="header-logo">
+      <img src="logo.png" alt="Outbound Squad" class="header-logo" width="140" height="40">
     </div>
   </header>
 
   <!-- 2. HERO -->
   <section class="hero" style="padding-bottom: 120px;">
     <div class="container">
-      <span class="badge badge-navy hero-badge">FREE LIVE EVENT SERIES | APRIL 28-30</span>
-      <h1 class="hero-headline">Outbound isn't dead, but it's broken.</h1>
-      <p class="hero-sub">The outbound playbook has fundamentally changed. It's time to stop running old playbooks. Learn how top reps are booking meetings and building pipeline in the AI era.</p>
-      <div class="hero-stats">
+      <span class="badge badge-navy hero-badge reveal">FREE LIVE EVENT SERIES | APRIL 28-30</span>
+      <h1 class="hero-headline reveal reveal-delay-1">Outbound isn't dead, but it's broken.</h1>
+      <p class="hero-sub reveal reveal-delay-2">The outbound playbook has fundamentally changed. It's time to stop running old playbooks. Learn how top reps are booking meetings and building pipeline in the AI era.</p>
+      <div class="hero-stats reveal reveal-delay-3">
         <span class="hero-stat">3 Live Sessions</span>
         <span class="hero-stat-sep">|</span>
         <span class="hero-stat">100% Free</span>
         <span class="hero-stat-sep">|</span>
         <span class="hero-stat">April 28-30</span>
       </div>
-      <div class="hero-cta-wrap">
+      <div class="hero-cta-wrap reveal reveal-delay-4">
         <a href="#register" class="btn btn-orange btn-xl">Save My Spot (Free)</a>
         <p class="cta-note">Live and interactive. Recordings available for registrants.</p>
       </div>
@@ -960,33 +1149,30 @@
   <section class="problem-section section-white">
     <div class="container">
       <h2 class="section-headline text-center reveal">Let's be honest about what's happening</h2>
-      <div class="problem-blocks reveal">
-        <div class="problem-block">
+      <div class="problem-blocks">
+        <div class="problem-block reveal reveal-delay-1">
           <div class="problem-stat">1.9%</div>
           <p class="problem-text">The average cold email reply rate. Mass blasting templates or poorly written AI-generated emails isn't working.</p>
         </div>
-        <div class="problem-block">
+        <div class="problem-block reveal reveal-delay-2">
           <div class="problem-stat">5.4%</div>
           <p class="problem-text">The average cold call connect rate. Fewer buyers answer nowadays, and most have AI gatekeepers to screen calls.</p>
         </div>
       </div>
-      <p class="problem-close reveal">The old playbook is broken. But here's the good news: the top 25% of reps are booking <span class="highlight">4.3x more meetings</span> than everyone else. What do they know that your team doesn't?</p>
+      <p class="problem-close reveal reveal-delay-3">The old playbook is broken. But here's the good news: the top 25% of reps are booking <span class="highlight">4.3x more meetings</span> than everyone else. What do they know that your team doesn't?</p>
     </div>
   </section>
 
   <!-- 4. THE SOLUTION -->
   <section class="section section-lightorange">
     <div class="container">
-      <div class="solution-inner reveal">
-        <h2 class="section-headline">Introducing the Outbound Masterclass</h2>
-        <p class="solution-sub">3 days. 3 live, interactive sessions. Everything your team needs to start booking more meetings immediately.</p>
-        <p class="solution-para">This isn't a webinar where you sit and listen for an hour. This is a live training series where you'll learn frameworks in real-time and walk away with tools you can use the same day. And it's completely free.</p>
-        <div class="solution-launch-box">
+      <div class="solution-inner">
+        <h2 class="section-headline reveal">Introducing the Outbound Masterclass</h2>
+        <p class="solution-sub reveal reveal-delay-1">3 days. 3 live, interactive sessions. Everything your team needs to start booking more meetings immediately.</p>
+        <p class="solution-para reveal reveal-delay-2">This isn't a webinar where you sit and listen for an hour. This is a live training series where you'll learn frameworks in real-time and walk away with tools you can use the same day. And it's completely free.</p>
+        <div class="solution-launch-box reveal reveal-delay-3">
           <span class="badge badge-orange">BONUS: FREE COURSE</span>
           <p>At the end of the series, we'll open access to the full Outbound Masterclass course, a 3-hour deep dive into everything we teach our clients.</p>
-        </div>
-        <div class="text-center" style="margin-top: 32px;">
-          <a href="#register" class="btn btn-orange btn-lg">Save My Spot (Free)</a>
         </div>
       </div>
     </div>
@@ -1000,16 +1186,16 @@
         <p>Three live sessions. Three frameworks. One complete system.</p>
       </div>
 
-      <div class="session-tabs reveal" role="tablist">
-        <button class="session-tab active" data-tab="session-1" role="tab" aria-selected="true">Session 1: Cold Calling</button>
-        <button class="session-tab" data-tab="session-2" role="tab" aria-selected="false">Session 2: Objection Handling</button>
-        <button class="session-tab" data-tab="session-3" role="tab" aria-selected="false">Session 3: Masterclass</button>
+      <div class="session-tabs reveal reveal-delay-1" role="tablist">
+        <button class="session-tab active" data-tab="session-1" role="tab" aria-selected="true" aria-controls="session-1" id="tab-1">Session 1: Cold Calling</button>
+        <button class="session-tab" data-tab="session-2" role="tab" aria-selected="false" aria-controls="session-2" id="tab-2">Session 2: Objection Handling</button>
+        <button class="session-tab" data-tab="session-3" role="tab" aria-selected="false" aria-controls="session-3" id="tab-3">Session 3: Masterclass</button>
       </div>
 
-      <div class="sessions-stack reveal">
+      <div class="sessions-stack reveal reveal-delay-2">
 
         <!-- SESSION 1 -->
-        <div class="session-card active" id="session-1" role="tabpanel">
+        <div class="session-card active" id="session-1" role="tabpanel" aria-labelledby="tab-1">
           <span class="session-date-badge">TUE APR 28 | 12:00 PM ET</span>
           <div class="session-icon">📞</div>
           <h3 class="session-title">Cold Calling: Give me an hour and I'll eliminate your fear of the phones</h3>
@@ -1023,7 +1209,7 @@
         </div>
 
         <!-- SESSION 2 -->
-        <div class="session-card" id="session-2" role="tabpanel">
+        <div class="session-card" id="session-2" role="tabpanel" aria-labelledby="tab-2">
           <span class="session-date-badge">WED APR 29 | 12:00 PM ET</span>
           <div class="session-icon">🛑</div>
           <h3 class="session-title">Objection Handling: Handle any objection prospects throw at you</h3>
@@ -1037,7 +1223,7 @@
         </div>
 
         <!-- SESSION 3 (Elevated) -->
-        <div class="session-card session-card-elevated" id="session-3" role="tabpanel">
+        <div class="session-card session-card-elevated" id="session-3" role="tabpanel" aria-labelledby="tab-3">
           <span class="session-date-badge">THU APR 30 | 12:00 PM ET</span>
           <div class="session-icon">📈</div>
           <h3 class="session-title">
@@ -1057,7 +1243,7 @@
 
       </div>
 
-      <div class="text-center" style="margin-top: 40px;">
+      <div class="text-center reveal" style="margin-top: 40px;">
         <a href="#register" class="btn btn-orange btn-lg">Save My Spot (Free)</a>
       </div>
     </div>
@@ -1066,8 +1252,8 @@
   <!-- 7. WHO THIS IS FOR -->
   <section class="section section-white">
     <div class="container">
-      <div class="who-inner reveal">
-        <p>Built for SDRs, BDRs, Account Executives, and front-line sales leaders who are tired of outbound that doesn't work and ready to learn what does.</p>
+      <div class="who-inner">
+        <p class="reveal">Built for SDRs, BDRs, Account Executives, and front-line sales leaders who are tired of outbound that doesn't work and ready to learn what does.</p>
       </div>
     </div>
   </section>
@@ -1075,9 +1261,9 @@
   <!-- 8. ABOUT JASON -->
   <section class="section section-white" style="padding-top: 24px;">
     <div class="container">
-      <div class="about-grid reveal">
-        <img src="headshots/jason-bay.jpg" alt="Jason Bay" class="about-headshot">
-        <div class="about-text">
+      <div class="about-grid">
+        <img src="headshots/jason-bay.jpg" alt="Jason Bay, CEO of Outbound Squad" class="about-headshot reveal" width="280" height="340" loading="lazy">
+        <div class="about-text reveal reveal-delay-1">
           <h2 class="about-title">About Jason Bay</h2>
           <p class="about-subtitle">CEO, Outbound Squad</p>
           <p>The team and I are on a mission to help reps and sales teams turn strangers into paying customers. Sales is the only 'adult job' I've ever had. And I've done everything from selling house painting services door to door, running outbound call centers, to helping thousands of reps become world-class sellers.</p>
@@ -1089,8 +1275,8 @@
   <!-- LOGO MARQUEE -->
   <section class="marquee-section">
     <div class="container">
-      <div class="marquee-wrap reveal">
-        <p class="marquee-label">Trusted by world-class sales teams</p>
+      <div class="marquee-wrap">
+        <p class="marquee-label reveal">Trusted by world-class sales teams</p>
         <div class="marquee">
           <div class="marquee-track">
             <!-- Loop set 1 -->
@@ -1136,14 +1322,15 @@
   <!-- 9. URGENCY + FORM (Light Blue) -->
   <section class="section section-lightblue-fadeout" id="register">
     <div class="container">
-      <div class="urgency-inner reveal">
-        <h2 class="urgency-headline">These sessions are live. Not pre-recorded. This is a one-time launch event for the Outbound Masterclass.</h2>
-        <p class="urgency-dates">April 28-30, 2026 | 12:00 PM ET each day</p>
-        <div class="form-container">
+      <div class="urgency-inner">
+        <span class="urgency-label reveal">ONE-TIME EVENT</span>
+        <h2 class="urgency-headline reveal reveal-delay-1">These sessions are live. Not pre-recorded. This is a one-time launch event for the Outbound Masterclass.</h2>
+        <p class="urgency-dates reveal reveal-delay-2">April 28-30, 2026 | 12:00 PM ET each day</p>
+        <div class="form-container reveal reveal-delay-3">
           <script src="https://js.hsforms.net/forms/embed/22498808.js" defer></script>
           <div class="hs-form-frame" data-region="na1" data-form-id="6ec64e0d-5422-40c8-a3c1-5fb88b1b48a3" data-portal-id="22498808"></div>
         </div>
-        <p class="form-note">By registering, you'll get access to all three live sessions, recordings, and the Outbound Masterclass course.</p>
+        <p class="form-note reveal reveal-delay-4">By registering, you'll get access to all three live sessions, recordings, and the Outbound Masterclass course.</p>
       </div>
     </div>
   </section>
@@ -1151,7 +1338,7 @@
   <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
-      <img src="logo.png" alt="Outbound Squad" class="footer-logo">
+      <img src="logo.png" alt="Outbound Squad" class="footer-logo" width="120" height="34" loading="lazy">
       <p class="footer-copy">&copy; 2026 Outbound Squad</p>
     </div>
   </footer>
@@ -1168,44 +1355,90 @@
       });
     });
 
-    /* Session tabs */
+    /* Session tabs with smooth fade */
     var tabs = document.querySelectorAll('.session-tab');
     var cards = document.querySelectorAll('.session-card');
     tabs.forEach(function(tab) {
       tab.addEventListener('click', function() {
         var target = tab.getAttribute('data-tab');
+        var currentActive = document.querySelector('.session-card.active');
+        var nextCard = document.getElementById(target);
+        if (!nextCard || nextCard === currentActive) return;
+
         tabs.forEach(function(t) {
           t.classList.remove('active');
           t.setAttribute('aria-selected', 'false');
+          t.setAttribute('tabindex', '-1');
         });
         tab.classList.add('active');
         tab.setAttribute('aria-selected', 'true');
+        tab.setAttribute('tabindex', '0');
 
-        cards.forEach(function(card) {
-          if (card.id === target) {
-            card.style.display = 'block';
-            // trigger fade
+        if (currentActive) {
+          currentActive.style.opacity = '0';
+          setTimeout(function() {
+            currentActive.classList.remove('active', 'fade-in');
+            currentActive.style.display = 'none';
+            currentActive.style.opacity = '';
+            nextCard.style.display = 'block';
             requestAnimationFrame(function() {
-              card.classList.add('active');
+              nextCard.classList.add('active', 'fade-in');
             });
-          } else {
-            card.classList.remove('active');
-            card.style.display = 'none';
-          }
-        });
+          }, 200);
+        } else {
+          nextCard.style.display = 'block';
+          requestAnimationFrame(function() {
+            nextCard.classList.add('active', 'fade-in');
+          });
+        }
       });
+
+      /* Keyboard nav: left/right arrows between tabs */
+      tab.addEventListener('keydown', function(e) {
+        var tabArr = Array.prototype.slice.call(tabs);
+        var i = tabArr.indexOf(tab);
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+          e.preventDefault();
+          var next = tabArr[(i + 1) % tabArr.length];
+          next.focus();
+          next.click();
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+          e.preventDefault();
+          var prev = tabArr[(i - 1 + tabArr.length) % tabArr.length];
+          prev.focus();
+          prev.click();
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          tabArr[0].focus();
+          tabArr[0].click();
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          tabArr[tabArr.length - 1].focus();
+          tabArr[tabArr.length - 1].click();
+        }
+      });
+    });
+
+    /* Ensure only the active tab is in the tab order initially */
+    tabs.forEach(function(t) {
+      t.setAttribute('tabindex', t.classList.contains('active') ? '0' : '-1');
     });
 
     /* Scroll Reveal */
     var reveals = document.querySelectorAll('.reveal');
-    var observer = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-    reveals.forEach(function(el) { observer.observe(el); });
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+      reveals.forEach(function(el) { observer.observe(el); });
+    } else {
+      reveals.forEach(function(el) { el.classList.add('visible'); });
+    }
   </script>
 
 </body>
