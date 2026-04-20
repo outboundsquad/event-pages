@@ -88,11 +88,19 @@
     }
 
     .section-lightblue {
-      background: linear-gradient(180deg, #FFFFFF 0%, #E6F0FA 50%, #d0e2f4 100%);
+      background: linear-gradient(180deg, #FFFFFF 0%, #E6F0FA 50%, #FFFFFF 100%);
+    }
+
+    .section-lightblue-fadeout {
+      background: linear-gradient(180deg, #FFFFFF 0%, #E6F0FA 25%, #E6F0FA 70%, #FFFFFF 100%);
     }
 
     .section-lightorange {
-      background: linear-gradient(180deg, #FFFFFF 0%, #F9EBE7 40%, #f2ddd6 100%);
+      background: linear-gradient(180deg, #FFFFFF 0%, #F9EBE7 30%, #F9EBE7 100%);
+    }
+
+    .section-lightorange-fadeout {
+      background: linear-gradient(180deg, #F9EBE7 0%, #F9EBE7 80%, #FFFFFF 100%);
     }
 
     .section-navy {
@@ -215,7 +223,7 @@
        2. HERO
        ======================================== */
     .hero {
-      background: linear-gradient(180deg, #FFFFFF 0%, #E6F0FA 60%, #d0e2f4 100%);
+      background: linear-gradient(180deg, #FFFFFF 0%, #E6F0FA 40%, #E6F0FA 70%, #FFFFFF 100%);
       padding: 80px 0 96px;
       text-align: center;
       position: relative;
@@ -526,8 +534,8 @@
     }
 
     .session-callout {
-      background: linear-gradient(90deg, #FFF4EF 0%, #FDEAE1 100%);
-      border-left: 3px solid #F86A3E;
+      background: #E6F0FA;
+      border-left: 3px solid #00A2FF;
       padding: 16px 20px;
       border-radius: 8px;
       font-size: 16px;
@@ -541,12 +549,12 @@
       background: linear-gradient(180deg, #FFFFFF 0%, #FAFBFF 100%);
       border: 2px solid transparent;
       background-clip: padding-box;
-      box-shadow: 0 8px 32px rgba(248, 106, 62, 0.18), 0 0 0 1px rgba(248, 106, 62, 0.25);
+      box-shadow: 0 8px 32px rgba(0, 162, 255, 0.18), 0 0 0 1px rgba(0, 162, 255, 0.25);
     }
 
     .session-premiere-tag {
       display: inline-block;
-      background: #F86A3E;
+      background: #00A2FF;
       color: #FFFFFF;
       font-size: 12px;
       font-weight: 700;
@@ -734,9 +742,10 @@
     .form-note {
       font-size: 14px;
       color: #555555;
-      margin-top: 20px;
+      margin: 20px auto 0;
       line-height: 1.5;
       text-align: center;
+      max-width: 400px;
     }
 
     /* ========================================
@@ -928,7 +937,7 @@
   </header>
 
   <!-- 2. HERO -->
-  <section class="hero">
+  <section class="hero" style="padding-bottom: 120px;">
     <div class="container">
       <span class="badge badge-navy hero-badge">FREE LIVE EVENT SERIES | APRIL 28-30</span>
       <h1 class="hero-headline">Outbound isn't dead, but it's broken.</h1>
@@ -966,7 +975,7 @@
   </section>
 
   <!-- 4. THE SOLUTION -->
-  <section class="section section-lightblue">
+  <section class="section section-lightorange">
     <div class="container">
       <div class="solution-inner reveal">
         <h2 class="section-headline">Introducing the Outbound Masterclass</h2>
@@ -981,7 +990,7 @@
   </section>
 
   <!-- 5. THE 3 SESSIONS (Tabbed, Light Orange) -->
-  <section class="section section-lightorange">
+  <section class="section section-lightorange-fadeout">
     <div class="container">
       <div class="sessions-intro reveal">
         <h2 class="section-headline">Here's what you'll learn</h2>
@@ -1003,10 +1012,9 @@
           <h3 class="session-title">Cold Calling: Give me an hour and I'll eliminate your fear of the phones</h3>
           <p class="session-intro">Most reps dread the phone. Not because they're bad at selling, but because no one ever taught them a framework that actually works. In this session, you'll learn:</p>
           <ul class="session-bullets">
-            <li>The 3-step cold call opener that triples connect-to-meeting rates</li>
-            <li>How to handle "I'm not interested" in the first 5 seconds (without being pushy)</li>
-            <li>A talk track framework your reps can customize and start using the same day</li>
-            <li>Live role-plays and Q&amp;A so you can practice in real-time</li>
+            <li>The 3-step cold call framework that triples meeting booked rates</li>
+            <li>Creative openers to reduce hang-ups and capture the prospect's attention</li>
+            <li>Engaging questions that anchor to pain and get the prospect to show up</li>
           </ul>
           <div class="session-callout">You'll leave this session with a complete cold call talk track ready to use.</div>
         </div>
@@ -1018,10 +1026,9 @@
           <h3 class="session-title">Objection Handling: Handle any objection prospects throw at you</h3>
           <p class="session-intro">Objections aren't rejections. They're signals that you haven't earned trust yet. Most reps freeze or fumble when they hear "not interested" or "we already have a solution." In this session, you'll learn:</p>
           <ul class="session-bullets">
-            <li>The psychology behind why prospects object (and why it's actually a good sign)</li>
+            <li>The psychology behind why prospects object (it's actually a good sign)</li>
             <li>A universal framework for responding to ANY objection without sounding scripted</li>
             <li>The 5 most common cold call objections and exactly what to say for each one</li>
-            <li>How to turn "send me an email" into a booked meeting</li>
           </ul>
           <div class="session-callout">You'll leave with a repeatable objection handling playbook.</div>
         </div>
@@ -1036,11 +1043,11 @@
           </h3>
           <p class="session-intro">This is the main event. Everything from the first two sessions comes together into a complete outbound methodology. This is the same framework we've used to train 20,000+ reps at companies like Shopify, Gong, Zoom, and Rippling. In this session, you'll learn:</p>
           <ul class="session-bullets">
-            <li>Why outbound is broken and what the top 25% of reps do differently</li>
-            <li>The 3-part methodology: Disqualify, Offer, Provoke</li>
-            <li>How to build messaging that makes buyers feel like you're reading their mind</li>
-            <li>The weekly pipeline generation system top reps use to book meetings consistently</li>
-            <li>A live preview of the full Outbound Masterclass course (15 modules, 3 hours, free)</li>
+            <li>Disqualify and avoid wasting hours pursuing bad-fit accounts</li>
+            <li>Leverage AI as your personal assistant to eliminate most busywork</li>
+            <li>Phone &amp; email best practices</li>
+            <li>Build offers prospective buyers feel stupid for ignoring</li>
+            <li>A live preview of the free Outbound Masterclass course</li>
           </ul>
           <div class="session-callout">This session launches the free Outbound Masterclass. Registrants get first access.</div>
         </div>
@@ -1066,7 +1073,7 @@
         <div class="about-text">
           <h2 class="about-title">About Jason Bay</h2>
           <p class="about-subtitle">CEO, Outbound Squad</p>
-          <p>Jason Bay is the CEO of Outbound Squad. He's trained 20,000+ reps at companies like Shopify, Gong, Zoom, and Rippling. He hosts the Outbound Squad podcast (400+ episodes, 4.9 stars) and has been featured in Forbes, Entrepreneur, and Sales Hacker.</p>
+          <p>The team and I are on a mission to help reps and sales teams turn strangers into paying customers. Sales is the only 'adult job' I've ever had. And I've done everything from selling house painting services door to door, running outbound call centers, to helping thousands of reps become world-class sellers.</p>
         </div>
       </div>
     </div>
@@ -1120,17 +1127,16 @@
   </section>
 
   <!-- 9. URGENCY + FORM (Light Blue) -->
-  <section class="section section-lightblue" id="register">
+  <section class="section section-lightblue-fadeout" id="register">
     <div class="container">
       <div class="urgency-inner reveal">
-        <span class="urgency-label">This is a one-time event</span>
-        <h2 class="urgency-headline">These sessions are live. Not pre-recorded. Not evergreen. This is a one-time launch event for the Outbound Masterclass.</h2>
+        <h2 class="urgency-headline">These sessions are live. Not pre-recorded. This is a one-time launch event for the Outbound Masterclass.</h2>
         <p class="urgency-dates">April 28-30, 2026 | 12:00 PM ET each day</p>
         <div class="form-container">
           <script src="https://js.hsforms.net/forms/embed/22498808.js" defer></script>
           <div class="hs-form-frame" data-region="na1" data-form-id="6ec64e0d-5422-40c8-a3c1-5fb88b1b48a3" data-portal-id="22498808"></div>
         </div>
-        <p class="form-note">By registering, you'll get access to all three live sessions, recordings, and the Outbound Masterclass course on April 30.</p>
+        <p class="form-note">By registering, you'll get access to all three live sessions, recordings, and the Outbound Masterclass course.</p>
       </div>
     </div>
   </section>
