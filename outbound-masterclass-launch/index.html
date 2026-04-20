@@ -128,11 +128,11 @@
     }
 
     .section-lightorange {
-      background: linear-gradient(180deg, #FFFFFF 0%, #F9EBE7 30%, #F9EBE7 100%);
+      background: linear-gradient(180deg, #FFFFFF 0%, #F9EBE7 15%, #F9EBE7 85%, #FFFFFF 100%);
     }
 
     .section-lightorange-fadeout {
-      background: linear-gradient(180deg, #F9EBE7 0%, #F9EBE7 80%, #FFFFFF 100%);
+      background: linear-gradient(180deg, #FFFFFF 0%, #F9EBE7 15%, #F9EBE7 85%, #FFFFFF 100%);
     }
 
     .section-navy {
@@ -288,12 +288,12 @@
     }
 
     .hero-headline {
-      font-size: 62px;
+      font-size: 48px;
       font-weight: 800;
       color: #1B2235;
-      line-height: 1.08;
+      line-height: 1.1;
       letter-spacing: -0.03em;
-      max-width: 980px;
+      max-width: 1100px;
       margin: 0 auto 28px;
     }
 
@@ -877,6 +877,46 @@
       animation: datePulse 2.4s ease-in-out infinite;
     }
 
+    .urgency-schedule {
+      list-style: none;
+      padding: 0;
+      margin: 0 auto 36px;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      text-align: left;
+    }
+
+    .urgency-schedule-item {
+      background: #FFFFFF;
+      border-radius: 8px;
+      padding: 12px 16px;
+      border-left: 3px solid #CCCCCC;
+      box-shadow: 0 1px 3px rgba(27, 34, 53, 0.04);
+    }
+
+    .urgency-schedule-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1B2235;
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+    }
+
+    .urgency-schedule-meta {
+      font-size: 13px;
+      font-weight: 400;
+      color: #777777;
+      margin-top: 2px;
+      line-height: 1.4;
+    }
+
+    .urgency-accent-blue   { border-left-color: #00A2FF; }
+    .urgency-accent-orange { border-left-color: #F86A3E; }
+    .urgency-accent-navy   { border-left-color: #1B2235; }
+    .urgency-accent-green  { border-left-color: #2BAE66; }
+
     .form-container {
       position: relative;
       margin: 32px auto 0;
@@ -1220,6 +1260,7 @@
         <button class="session-tab active" data-tab="session-1" role="tab" aria-selected="true" aria-controls="session-1" id="tab-1">Session 1: Cold Calling</button>
         <button class="session-tab" data-tab="session-2" role="tab" aria-selected="false" aria-controls="session-2" id="tab-2">Session 2: Objection Handling</button>
         <button class="session-tab" data-tab="session-3" role="tab" aria-selected="false" aria-controls="session-3" id="tab-3">Session 3: Masterclass</button>
+        <button class="session-tab" data-tab="session-4" role="tab" aria-selected="false" aria-controls="session-4" id="tab-4">Bonus: Free Course</button>
       </div>
 
       <div class="sessions-stack reveal reveal-delay-2">
@@ -1269,6 +1310,21 @@
             <li>A live preview of the free Outbound Masterclass course</li>
           </ul>
           <div class="session-callout">This session launches the free Outbound Masterclass. Registrants get first access.</div>
+        </div>
+
+        <!-- SESSION 4 (Bonus Course) -->
+        <div class="session-card" id="session-4" role="tabpanel" aria-labelledby="tab-4">
+          <span class="session-date-badge">BONUS | UNLOCKS APR 30</span>
+          <div class="session-icon">🖥️</div>
+          <h3 class="session-title">Bonus: The Outbound Masterclass Course</h3>
+          <p class="session-intro">After the live sessions, unlock the full Outbound Masterclass. A free, 15-module, 3-hour video course covering the complete methodology we've used to train 20,000+ reps. It's the entire playbook, on demand, whenever you need it.</p>
+          <ul class="session-bullets">
+            <li>15 modules covering the full outbound methodology</li>
+            <li>3 hours of on-demand video content</li>
+            <li>Companion workbook with every framework, template, and AI prompt</li>
+            <li>Lifetime access, completely free</li>
+          </ul>
+          <div class="session-callout">Registrants for the live series get first access to the course on April 30.</div>
         </div>
 
       </div>
@@ -1354,8 +1410,25 @@
     <div class="container">
       <div class="urgency-inner">
         <span class="urgency-label reveal">ONE-TIME EVENT</span>
-        <h2 class="urgency-headline reveal reveal-delay-1">These sessions are live. Not pre-recorded. This is a one-time launch event for the Outbound Masterclass.</h2>
-        <p class="urgency-dates reveal reveal-delay-2">April 28-30, 2026 | 12:00 PM ET each day</p>
+        <h2 class="urgency-headline reveal reveal-delay-1">Live sessions (none of that pre-recorded B.S.)</h2>
+        <ul class="urgency-schedule reveal reveal-delay-2">
+          <li class="urgency-schedule-item urgency-accent-blue">
+            <div class="urgency-schedule-title">Session 1: Cold Calling</div>
+            <div class="urgency-schedule-meta">Tuesday, April 28 | 12:00 PM ET</div>
+          </li>
+          <li class="urgency-schedule-item urgency-accent-orange">
+            <div class="urgency-schedule-title">Session 2: Objection Handling</div>
+            <div class="urgency-schedule-meta">Wednesday, April 29 | 12:00 PM ET</div>
+          </li>
+          <li class="urgency-schedule-item urgency-accent-navy">
+            <div class="urgency-schedule-title">Session 3: Outbound Masterclass</div>
+            <div class="urgency-schedule-meta">Thursday, April 30 | 12:00 PM ET</div>
+          </li>
+          <li class="urgency-schedule-item urgency-accent-green">
+            <div class="urgency-schedule-title">Bonus: Free Outbound Masterclass Course</div>
+            <div class="urgency-schedule-meta">Unlocked for all registrants on April 30</div>
+          </li>
+        </ul>
         <div class="form-container reveal reveal-delay-3">
           <script src="https://js.hsforms.net/forms/embed/22498808.js" defer></script>
           <div class="hs-form-frame" data-region="na1" data-form-id="6ec64e0d-5422-40c8-a3c1-5fb88b1b48a3" data-portal-id="22498808"></div>
